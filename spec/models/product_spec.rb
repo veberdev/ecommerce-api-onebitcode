@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   subject { build(:product) }
 
-  before { puts subject }
+  # before { puts subject }
 
   it { is_expected.to validate_presence_of(:name)}
   it { is_expected.to validate_uniqueness_of(:name).case_insensitive}
@@ -17,4 +17,6 @@ RSpec.describe Product, type: :model do
 
   it { is_expected.to validate_presence_of(:image)}
 
+  it_behaves_like "name searchable concern", :product
+  it_behaves_like "paginatable concern", :product
 end
