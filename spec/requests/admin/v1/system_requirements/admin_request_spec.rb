@@ -49,18 +49,18 @@ RSpec.describe "Admin::v1::SystemRequirements", type: :request do
     end
 
     context "with valid params" do
-      let(:valid_params) { { coupon: attributes_for(:coupon) }.to_json  }
+      let(:valid_params) { { system_requirement: attributes_for(:system_requirement) }.to_json  }
 
-      it "adds a new coupon" do
+      it "adds a new system requirements" do
         expect do
           post url, headers: auth_header(user), params: valid_params
-        end.to change(Coupon, :count).by(1)
+        end.to change(SystemRequirement, :count).by(1)
       end
 
-      it "returns last added Coupon" do
+      it "returns last added system requirements" do
         post url, headers: auth_header(user), params: valid_params
-        last_coupon = Coupon.last.id
-        expect(body_json['coupons']['id']).to eq(last_coupon)
+        last_system_requirements = SystemRequirement.last.id
+        expect(body_json['system_requirements']['id']).to eq(last_system_requirements)
       end
 
       it "return success status" do
