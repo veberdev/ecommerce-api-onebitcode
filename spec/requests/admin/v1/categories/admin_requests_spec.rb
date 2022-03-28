@@ -3,20 +3,6 @@ require 'rails_helper'
 RSpec.describe "Admin::V1::Categories as :admin", type: :request do
   let(:user) { create(:user) }
 
-  # context "GET /categories" do
-  #   let(:url) { "/admin/v1/categories" }
-  #   let!(:categories) { create_list(:category, 5)}
-  #
-  #   it "returns all Categories" do
-  #     get url, headers: auth_header(user)
-  #     expect(body_json['categories']).to contain_exactly *categories.as_json(only: %i(id name))
-  #   end
-  #
-  #   it "return success status" do
-  #     get url, headers: auth_header(user)
-  #     expect(response).to have_http_status(200)
-  #   end
-  # end
   context "GET /categories" do
     let(:url) { "/admin/v1/categories" }
     let!(:categories) { create_list(:category, 10) }
@@ -101,6 +87,23 @@ RSpec.describe "Admin::V1::Categories as :admin", type: :request do
       end
     end
   end
+
+  context "GET /categories/:id" do
+    let(:category) { create(:category) }
+    let(:url) { "/admin/v1/categories/#{category.id}" }
+
+    it "returns requested Category" do
+      get url, headers: auth_header(user)
+      expected_category = category.as_json(only: %i(id name))
+      expect(body_json['category']).to eq expected_category
+    end
+
+    it "returns success status" do
+      get url, headers: auth_header(user)
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
   context "POST /categories" do
     let(:url) { "/admin/v1/categories" }
 
