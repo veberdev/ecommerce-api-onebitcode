@@ -19,6 +19,7 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         expected_return = products[0..9].map do |product|
           build_game_product_json(product)
         end
+        # falta productable_id e system_requirement
         expect(body_json['products']).to contain_exactly *expected_return
       end
 
