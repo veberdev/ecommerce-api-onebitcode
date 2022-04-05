@@ -26,6 +26,7 @@ RSpec.describe Coupon, type: :model do
     expect(subject.errors.keys).to_not include :due_date
   end
 
+  it_has_behavior_of "like searchable concern", :coupon, :code
   it_behaves_like "paginatable concern", :coupon
 
 end
